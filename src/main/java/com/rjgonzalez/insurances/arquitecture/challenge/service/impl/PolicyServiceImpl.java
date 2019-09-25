@@ -8,6 +8,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRSDTO;
@@ -21,6 +22,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.PolicyService;
  * @author Roberto Jesus Gonzalez Carrato Pozo
  *
  */
+@Service
 public class PolicyServiceImpl implements PolicyService {
 
 	@Autowired

@@ -18,6 +18,9 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.ProductRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ProductRSDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.service.ProductService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Controller to manage products
  * 
@@ -25,6 +28,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.ProductService;
  *
  */
 @RestController
+@Api(value = "API Rest for insurance products.")
 @RequestMapping({ "api-challenge/product" })
 public class ProductController {
 
@@ -40,6 +44,7 @@ public class ProductController {
 	 */
 	@PostMapping(path = "/addProduct", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Add new product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> addProduct(@RequestBody ProductRQDTO productRQDTO) {
 
 		return productService.addProduct(productRQDTO);
@@ -55,6 +60,7 @@ public class ProductController {
 	 */
 	@GetMapping(path = "/getProduct/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Retrieve a product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> getProduct(@PathVariable Long idProduct) {
 
 		return productService.getProduct(idProduct);
@@ -70,6 +76,7 @@ public class ProductController {
 	 */
 	@DeleteMapping(path = "/deleteProduct/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Delete a product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> deleteProduct(@PathVariable Long idProduct) {
 
 		return productService.deleteProduct(idProduct);
@@ -84,6 +91,7 @@ public class ProductController {
 	 */
 	@GetMapping(path = "/getAllProducts", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Retrieve the list of all products of the insurance company.")
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts() {
 
 		return productService.getAllProducts();

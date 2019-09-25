@@ -18,6 +18,9 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRSDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.service.ClientService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Controller to manage clients
  * 
@@ -25,6 +28,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.ClientService;
  *
  */
 @RestController
+@Api(value = "API Rest for insurance clients.")
 @RequestMapping({ "api-challenge/client" })
 public class ClientController {
 
@@ -40,6 +44,7 @@ public class ClientController {
 	 */
 	@PostMapping(path = "/addClient", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Add new client of the insurance company.")
 	public ResponseEntity<ClientRSDTO> addClient(@RequestBody ClientRQDTO clientRQDTO) {
 
 		return clientService.addClient(clientRQDTO);
@@ -55,6 +60,7 @@ public class ClientController {
 	 */
 	@GetMapping(path = "/getClient/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Retrieve a client of the insurance company.")
 	public ResponseEntity<ClientRSDTO> getClient(@PathVariable Long idClient) {
 
 		return clientService.getClient(idClient);
@@ -70,6 +76,7 @@ public class ClientController {
 	 */
 	@DeleteMapping(path = "/deleteClient/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Delete a client of the insurance company.")
 	public ResponseEntity<ClientRSDTO> deleteClient(@PathVariable Long idClient) {
 
 		return clientService.deleteClient(idClient);
@@ -84,6 +91,7 @@ public class ClientController {
 	 */
 	@GetMapping(path = "/getAllClients", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Retrieve the list of all clients of the insurance company.")
 	public ResponseEntity<List<ClientRSDTO>> getAllClients() {
 
 		return clientService.getAllClients();

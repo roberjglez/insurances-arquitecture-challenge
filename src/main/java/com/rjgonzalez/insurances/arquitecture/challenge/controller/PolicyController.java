@@ -18,6 +18,9 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRSDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.service.PolicyService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Controller to manage policies
  * 
@@ -25,6 +28,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.PolicyService;
  *
  */
 @RestController
+@Api(value = "API Rest for insurance policies.")
 @RequestMapping({ "api-challenge/policy" })
 public class PolicyController {
 
@@ -40,6 +44,7 @@ public class PolicyController {
 	 */
 	@PostMapping(path = "/addPolicy", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Add new policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> addPolicy(@RequestBody PolicyRQDTO policyRQDTO) {
 
 		return policyService.addPolicy(policyRQDTO);
@@ -55,6 +60,7 @@ public class PolicyController {
 	 */
 	@GetMapping(path = "/getPolicy/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Retrieve a policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> getPolicy(@PathVariable Long idPolicy) {
 
 		return policyService.getPolicy(idPolicy);
@@ -70,6 +76,7 @@ public class PolicyController {
 	 */
 	@DeleteMapping(path = "/deletePolicy/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Delete a policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> deletePolicy(@PathVariable Long idPolicy) {
 
 		return policyService.deletePolicy(idPolicy);
@@ -84,6 +91,7 @@ public class PolicyController {
 	 */
 	@GetMapping(path = "/getAllPolicies", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@ApiOperation(value = "Retrieve the list of all policies of the insurance company.")
 	public ResponseEntity<List<PolicyRSDTO>> getAllPolicies() {
 
 		return policyService.getAllPolicies();
