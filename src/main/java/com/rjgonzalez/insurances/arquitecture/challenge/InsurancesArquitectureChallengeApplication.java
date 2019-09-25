@@ -16,12 +16,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * Client Entity
- * 
- * @author Roberto Jesus Gonzalez Carrato Pozo
- *
- */
 @EnableSwagger2
 @SpringBootApplication
 public class InsurancesArquitectureChallengeApplication {
@@ -43,7 +37,7 @@ public class InsurancesArquitectureChallengeApplication {
 
 	// Describe your apis
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Swagger Filmproducer")
+		return new ApiInfoBuilder().title("Swagger Insurances Company Challenge")
 				.description("This page lists all the rest apis for Swagger Insurances company.")
 				.version("1.0-SNAPSHOT").build();
 	}
