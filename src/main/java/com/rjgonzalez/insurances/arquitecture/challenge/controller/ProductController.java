@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,6 +96,24 @@ public class ProductController {
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts() {
 
 		return productService.getAllProducts();
+
+	}
+
+	/**
+	 * Endpoint to update a specific product
+	 * 
+	 * @param idProduct    -> id product that we want to update
+	 * @param productRQDTO -> product with all the information
+	 * @return ResponseEntity<ProductRSDTO> -> product and http status
+	 *
+	 */
+	@PatchMapping(path = "/updateProduct/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value = "Update a product of the insurance company.")
+	public ResponseEntity<ProductRSDTO> updateProduct(@PathVariable Long idProduct,
+			@RequestBody ProductRQDTO productRQDTO) {
+
+		return productService.updateProduct(idProduct, productRQDTO);
 
 	}
 

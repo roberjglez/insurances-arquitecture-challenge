@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,6 +96,23 @@ public class PolicyController {
 	public ResponseEntity<List<PolicyRSDTO>> getAllPolicies() {
 
 		return policyService.getAllPolicies();
+
+	}
+
+	/**
+	 * Endpoint to update a specific policy
+	 * 
+	 * @param idPolicy    -> id policy that we want to update
+	 * @param policyRQDTO -> policy with all the information
+	 * @return ResponseEntity<PolicyRSDTO> -> policy and http status
+	 *
+	 */
+	@PatchMapping(path = "/updatePolicy/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value = "Update a policy of the insurance company.")
+	public ResponseEntity<PolicyRSDTO> updatePolicy(@PathVariable Long idPolicy, @RequestBody PolicyRQDTO policyRQDTO) {
+
+		return policyService.updatePolicy(idPolicy, policyRQDTO);
 
 	}
 

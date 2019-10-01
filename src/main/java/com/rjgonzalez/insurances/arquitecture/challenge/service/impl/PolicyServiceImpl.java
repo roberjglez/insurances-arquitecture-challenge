@@ -81,4 +81,19 @@ public class PolicyServiceImpl implements PolicyService {
 		return new ResponseEntity<>(policiesListDTO, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<PolicyRSDTO> updatePolicy(Long idPolicy, PolicyRQDTO policyRQDTO) {
+
+		policyRQDTO.setIdPolicy(idPolicy);
+
+		PolicyEntity policyRQEntity = modelMapper.map(policyRQDTO, PolicyEntity.class);
+
+		PolicyEntity policyRSEntity = policyRepository.save(policyRQEntity);
+
+		PolicyRSDTO policyResponse = modelMapper.map(policyRSEntity, PolicyRSDTO.class);
+
+		return new ResponseEntity<>(policyResponse, HttpStatus.OK);
+
+	}
+
 }

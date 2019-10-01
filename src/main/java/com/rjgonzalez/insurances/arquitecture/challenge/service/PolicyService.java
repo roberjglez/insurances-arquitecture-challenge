@@ -22,4 +22,6 @@ public interface PolicyService {
 	public ResponseEntity<PolicyRSDTO> getPolicy(Long idPolicy);
 
 	public ResponseEntity<List<PolicyRSDTO>> getAllPolicies();
+
+	public ResponseEntity<PolicyRSDTO> updatePolicy(Long idPolicy, PolicyRQDTO policyRQDTO);
 }

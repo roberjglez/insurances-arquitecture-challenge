@@ -22,4 +22,6 @@ public interface ProductService {
 	public ResponseEntity<ProductRSDTO> getProduct(Long idProduct);
 
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts();
+
+	public ResponseEntity<ProductRSDTO> updateProduct(Long idProduct, ProductRQDTO productRQDTO);
 }

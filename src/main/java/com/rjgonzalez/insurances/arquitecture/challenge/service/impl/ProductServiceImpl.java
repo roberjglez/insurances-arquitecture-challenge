@@ -81,4 +81,19 @@ public class ProductServiceImpl implements ProductService {
 		return new ResponseEntity<>(productsListDTO, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<ProductRSDTO> updateProduct(Long idProduct, ProductRQDTO productRQDTO) {
+
+		productRQDTO.setIdProduct(idProduct);
+
+		ProductEntity productRQEntity = modelMapper.map(productRQDTO, ProductEntity.class);
+
+		ProductEntity productRSEntity = productRepository.save(productRQEntity);
+
+		ProductRSDTO productResponse = modelMapper.map(productRSEntity, ProductRSDTO.class);
+
+		return new ResponseEntity<>(productResponse, HttpStatus.OK);
+
+	}
+
 }

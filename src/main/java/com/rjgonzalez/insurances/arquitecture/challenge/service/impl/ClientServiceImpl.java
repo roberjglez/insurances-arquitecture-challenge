@@ -81,4 +81,18 @@ public class ClientServiceImpl implements ClientService {
 		return new ResponseEntity<>(clientsListDTO, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<ClientRSDTO> updateClient(Long idClient, ClientRQDTO clientRQDTO) {
+
+		clientRQDTO.setIdClient(idClient);
+
+		ClientEntity clientRQEntity = modelMapper.map(clientRQDTO, ClientEntity.class);
+
+		ClientEntity clientRSEntity = clientRepository.save(clientRQEntity);
+
+		ClientRSDTO clientResponse = modelMapper.map(clientRSEntity, ClientRSDTO.class);
+
+		return new ResponseEntity<>(clientResponse, HttpStatus.OK);
+	}
+
 }

@@ -22,4 +22,6 @@ public interface ClientService {
 	public ResponseEntity<ClientRSDTO> getClient(Long idClient);
 
 	public ResponseEntity<List<ClientRSDTO>> getAllClients();
+
+	public ResponseEntity<ClientRSDTO> updateClient(Long idClient, ClientRQDTO clientRQDTO);
 }
