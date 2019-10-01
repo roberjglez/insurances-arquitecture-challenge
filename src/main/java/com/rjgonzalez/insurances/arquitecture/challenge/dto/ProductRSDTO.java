@@ -17,8 +17,6 @@ public class ProductRSDTO {
 
 	private double price;
 
-	private PolicyRSDTO policy;
-
 	/**
 	 * @return the idProduct
 	 */
@@ -59,20 +57,6 @@ public class ProductRSDTO {
 	 */
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	/**
-	 * @return the policy
-	 */
-	public PolicyRSDTO getPolicy() {
-		return policy;
-	}
-
-	/**
-	 * @param policy the policy to set
-	 */
-	public void setPolicy(PolicyRSDTO policy) {
-		this.policy = policy;
 	}
 
 }

@@ -1,13 +1,12 @@
 package com.rjgonzalez.insurances.arquitecture.challenge.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,13 +33,27 @@ public class PolicyEntity {
 	@Column(name = "price", nullable = false)
 	private double price;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_product", referencedColumnName = "id_product")
+	@ManyToOne
+	@JoinColumn(name = "product", referencedColumnName = "id_product")
 	private ProductEntity product;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_client", referencedColumnName = "id_client")
+	@ManyToOne
+	@JoinColumn(name = "client", referencedColumnName = "id_client")
 	private ClientEntity client;
+
+	public PolicyEntity() {
+	}
+
+	public PolicyEntity(Long idPolicy, String type, String hiringDate, double price, ProductEntity product,
+			ClientEntity client) {
+		super();
+		this.idPolicy = idPolicy;
+		this.type = type;
+		this.hiringDate = hiringDate;
+		this.price = price;
+		this.product = product;
+		this.client = client;
+	}
 
 	/**
 	 * @return the idPolicy
@@ -113,14 +126,14 @@ public class PolicyEntity {
 	}
 
 	/**
-	 * @return the client
+	 * @return the clients
 	 */
 	public ClientEntity getClient() {
 		return client;
 	}
 
 	/**
-	 * @param client the client to set
+	 * @param clients the clients to set
 	 */
 	public void setClient(ClientEntity client) {
 		this.client = client;

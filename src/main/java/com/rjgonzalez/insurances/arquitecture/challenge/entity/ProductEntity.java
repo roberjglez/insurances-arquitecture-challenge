@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,8 +28,15 @@ public class ProductEntity {
 	@Column(name = "price", nullable = false)
 	private double price;
 
-	@OneToOne(mappedBy = "product")
-	private PolicyEntity policy;
+	public ProductEntity() {
+	}
+
+	public ProductEntity(Long idProduct, String type, double price) {
+		super();
+		this.idProduct = idProduct;
+		this.type = type;
+		this.price = price;
+	}
 
 	/**
 	 * @return the idProduct
@@ -72,20 +78,6 @@ public class ProductEntity {
 	 */
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	/**
-	 * @return the policy
-	 */
-	public PolicyEntity getPolicy() {
-		return policy;
-	}
-
-	/**
-	 * @param policy the policy to set
-	 */
-	public void setPolicy(PolicyEntity policy) {
-		this.policy = policy;
 	}
 
 }

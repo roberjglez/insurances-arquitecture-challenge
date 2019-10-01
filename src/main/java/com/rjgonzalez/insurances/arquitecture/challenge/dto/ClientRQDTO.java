@@ -1,7 +1,5 @@
 package com.rjgonzalez.insurances.arquitecture.challenge.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
@@ -20,8 +18,6 @@ public class ClientRQDTO {
 	private String surname;
 
 	private String phoneNumber;
-
-	private List<PolicyRQDTO> policies;
 
 	/**
 	 * @return the idClient
@@ -77,20 +73,6 @@ public class ClientRQDTO {
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	/**
-	 * @return the policies
-	 */
-	public List<PolicyRQDTO> getPolicies() {
-		return policies;
-	}
-
-	/**
-	 * @param policies the policies to set
-	 */
-	public void setPolicies(List<PolicyRQDTO> policies) {
-		this.policies = policies;
 	}
 
 }

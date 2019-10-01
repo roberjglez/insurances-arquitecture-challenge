@@ -1,16 +1,10 @@
 package com.rjgonzalez.insurances.arquitecture.challenge.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,9 +31,16 @@ public class ClientEntity {
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
 
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "client_has_policy", joinColumns = @JoinColumn(name = "id_policy", nullable = false), inverseJoinColumns = @JoinColumn(name = "id_client", nullable = false))
-	private List<PolicyEntity> policies;
+	public ClientEntity() {
+	}
+
+	public ClientEntity(Long idClient, String name, String surname, String phoneNumber) {
+		super();
+		this.idClient = idClient;
+		this.name = name;
+		this.surname = surname;
+		this.phoneNumber = phoneNumber;
+	}
 
 	/**
 	 * @return the idClient
@@ -95,20 +96,6 @@ public class ClientEntity {
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	/**
-	 * @return the policies
-	 */
-	public List<PolicyEntity> getPolicies() {
-		return policies;
-	}
-
-	/**
-	 * @param policies the policies to set
-	 */
-	public void setPolicies(List<PolicyEntity> policies) {
-		this.policies = policies;
 	}
 
 }
