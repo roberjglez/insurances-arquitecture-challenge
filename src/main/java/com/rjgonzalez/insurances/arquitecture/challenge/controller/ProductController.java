@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiResponses;
  */
 @RestController
 @Api(value = "API Rest for insurance products.")
-@RequestMapping({ "api-challenge/products" })
+@RequestMapping(value = "/api-challenge/products")
 public class ProductController {
 
 	@Autowired
