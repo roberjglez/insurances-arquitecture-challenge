@@ -25,11 +25,14 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.ClientService;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-	@Autowired
 	ModelMapper modelMapper;
+	ClientRepository clientRepository;
 
 	@Autowired
-	ClientRepository clientRepository;
+	public ClientServiceImpl(ClientRepository clientRepository, ModelMapper modelMapper) {
+		this.clientRepository = clientRepository;
+		this.modelMapper = modelMapper;
+	}
 
 	@Override
 	public ResponseEntity<ClientRSDTO> addClient(ClientRQDTO clientRQDTO) {

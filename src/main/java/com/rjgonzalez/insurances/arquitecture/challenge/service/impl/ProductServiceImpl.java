@@ -25,11 +25,14 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
 	ModelMapper modelMapper;
+	ProductRepository productRepository;
 
 	@Autowired
-	ProductRepository productRepository;
+	public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper) {
+		this.productRepository = productRepository;
+		this.modelMapper = modelMapper;
+	}
 
 	@Override
 	public ResponseEntity<ProductRSDTO> addProduct(ProductRQDTO productRQDTO) {

@@ -7,9 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @Api(value = "API Rest for insurance policies.")
-@RequestMapping({ "api-challenge/policy" })
+@RequestMapping({ "api-challenge/policies" })
 public class PolicyController {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class PolicyController {
 	 * @return ResponseEntity<PolicyRSDTO> -> policy and http status
 	 *
 	 */
-	@PostMapping(path = "/addPolicy", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Add new policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> addPolicy(@RequestBody PolicyRQDTO policyRQDTO) {
@@ -59,7 +59,7 @@ public class PolicyController {
 	 * @return ResponseEntity<PolicyRSDTO> -> policy and http status
 	 *
 	 */
-	@GetMapping(path = "/getPolicy/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Retrieve a policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> getPolicy(@PathVariable Long idPolicy) {
@@ -75,7 +75,7 @@ public class PolicyController {
 	 * @return ResponseEntity<PolicyRSDTO> -> policy and http status
 	 *
 	 */
-	@DeleteMapping(path = "/deletePolicy/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Delete a policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> deletePolicy(@PathVariable Long idPolicy) {
@@ -90,7 +90,7 @@ public class PolicyController {
 	 * @return ResponseEntity<List<PolicyRSDTO>> -> policies list and http status
 	 *
 	 */
-	@GetMapping(path = "/getAllPolicies", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Retrieve the list of all policies of the insurance company.")
 	public ResponseEntity<List<PolicyRSDTO>> getAllPolicies() {
@@ -107,7 +107,7 @@ public class PolicyController {
 	 * @return ResponseEntity<PolicyRSDTO> -> policy and http status
 	 *
 	 */
-	@PatchMapping(path = "/updatePolicy/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Update a policy of the insurance company.")
 	public ResponseEntity<PolicyRSDTO> updatePolicy(@PathVariable Long idPolicy, @RequestBody PolicyRQDTO policyRQDTO) {

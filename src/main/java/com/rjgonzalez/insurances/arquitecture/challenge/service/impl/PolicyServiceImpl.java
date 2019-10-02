@@ -25,11 +25,14 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.PolicyService;
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
-	@Autowired
 	ModelMapper modelMapper;
+	PolicyRepository policyRepository;
 
 	@Autowired
-	PolicyRepository policyRepository;
+	public PolicyServiceImpl(PolicyRepository policyRepository, ModelMapper modelMapper) {
+		this.policyRepository = policyRepository;
+		this.modelMapper = modelMapper;
+	}
 
 	@Override
 	public ResponseEntity<PolicyRSDTO> addPolicy(PolicyRQDTO policyRQDTO) {

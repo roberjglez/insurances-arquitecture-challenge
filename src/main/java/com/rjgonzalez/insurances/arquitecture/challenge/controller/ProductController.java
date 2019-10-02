@@ -7,9 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @Api(value = "API Rest for insurance products.")
-@RequestMapping({ "api-challenge/product" })
+@RequestMapping({ "api-challenge/products" })
 public class ProductController {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class ProductController {
 	 * @return ResponseEntity<ProductRSDTO> -> product and http status
 	 *
 	 */
-	@PostMapping(path = "/addProduct", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Add new product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> addProduct(@RequestBody ProductRQDTO productRQDTO) {
@@ -59,7 +59,7 @@ public class ProductController {
 	 * @return ResponseEntity<ProductRSDTO> -> product and http status
 	 *
 	 */
-	@GetMapping(path = "/getProduct/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Retrieve a product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> getProduct(@PathVariable Long idProduct) {
@@ -75,7 +75,7 @@ public class ProductController {
 	 * @return ResponseEntity<ProductRSDTO> -> product and http status
 	 *
 	 */
-	@DeleteMapping(path = "/deleteProduct/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Delete a product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> deleteProduct(@PathVariable Long idProduct) {
@@ -90,7 +90,7 @@ public class ProductController {
 	 * @return ResponseEntity<List<ProductRSDTO>> -> products list and http status
 	 *
 	 */
-	@GetMapping(path = "/getAllProducts", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Retrieve the list of all products of the insurance company.")
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts() {
@@ -107,7 +107,7 @@ public class ProductController {
 	 * @return ResponseEntity<ProductRSDTO> -> product and http status
 	 *
 	 */
-	@PatchMapping(path = "/updateProduct/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Update a product of the insurance company.")
 	public ResponseEntity<ProductRSDTO> updateProduct(@PathVariable Long idProduct,
