@@ -1,14 +1,17 @@
 package com.rjgonzalez.insurances.arquitecture.challenge.service.impl;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ProductRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ProductRSDTO;
@@ -35,25 +38,27 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ResponseEntity<ProductRSDTO> addProduct(ProductRQDTO productRQDTO) {
+	public ResponseEntity<Void> addProduct(ProductRQDTO productRQDTO) {
 
 		ProductEntity productRQEntity = modelMapper.map(productRQDTO, ProductEntity.class);
 
-		ProductEntity policyRSEntity = productRepository.save(productRQEntity);
+		ProductEntity productRSEntity = productRepository.save(productRQEntity);
 
-		ProductRSDTO productResponse = modelMapper.map(policyRSEntity, ProductRSDTO.class);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(productRSEntity.getIdProduct()).toUri();
 
-		return new ResponseEntity<>(productResponse, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setLocation(location);
+
+		return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
 	}
 
 	@Override
-	public ResponseEntity<ProductRSDTO> deleteProduct(Long idProduct) {
+	public ResponseEntity<Void> deleteProduct(Long idProduct) {
 
 		productRepository.deleteById(idProduct);
 
-		ProductRSDTO productRSEntity = new ProductRSDTO();
-
-		return new ResponseEntity<>(productRSEntity, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@Override

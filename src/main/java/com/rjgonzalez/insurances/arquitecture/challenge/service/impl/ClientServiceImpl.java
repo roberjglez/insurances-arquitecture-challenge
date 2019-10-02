@@ -1,14 +1,17 @@
 package com.rjgonzalez.insurances.arquitecture.challenge.service.impl;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRSDTO;
@@ -35,25 +38,27 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public ResponseEntity<ClientRSDTO> addClient(ClientRQDTO clientRQDTO) {
+	public ResponseEntity<Void> addClient(ClientRQDTO clientRQDTO) {
 
 		ClientEntity clientRQEntity = modelMapper.map(clientRQDTO, ClientEntity.class);
 
 		ClientEntity clientRSEntity = clientRepository.save(clientRQEntity);
 
-		ClientRSDTO clientResponse = modelMapper.map(clientRSEntity, ClientRSDTO.class);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(clientRSEntity.getIdClient()).toUri();
 
-		return new ResponseEntity<>(clientResponse, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setLocation(location);
+
+		return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
 	}
 
 	@Override
-	public ResponseEntity<ClientRSDTO> deleteClient(Long idClient) {
+	public ResponseEntity<Void> deleteClient(Long idClient) {
 
 		clientRepository.deleteById(idClient);
 
-		ClientRSDTO clientRSEntity = new ClientRSDTO();
-
-		return new ResponseEntity<>(clientRSEntity, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@Override

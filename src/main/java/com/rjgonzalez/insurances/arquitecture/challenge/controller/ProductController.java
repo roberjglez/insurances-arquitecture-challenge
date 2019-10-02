@@ -21,6 +21,9 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.ProductService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Controller to manage products
@@ -46,7 +49,9 @@ public class ProductController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Add new product of the insurance company.")
-	public ResponseEntity<ProductRSDTO> addProduct(@RequestBody ProductRQDTO productRQDTO) {
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Product created succesfully") })
+	public ResponseEntity<Void> addProduct(
+			@ApiParam(value = "New product object to store in database table", required = true) @RequestBody ProductRQDTO productRQDTO) {
 
 		return productService.addProduct(productRQDTO);
 
@@ -61,8 +66,11 @@ public class ProductController {
 	 */
 	@GetMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Retrieve a product of the insurance company.")
-	public ResponseEntity<ProductRSDTO> getProduct(@PathVariable Long idProduct) {
+	@ApiOperation(value = "Retrieve a product of the insurance company.", response = ProductRSDTO.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product found succesfully"),
+			@ApiResponse(code = 204, message = "Product not found") })
+	public ResponseEntity<ProductRSDTO> getProduct(
+			@ApiParam(value = "Product id that we want to get from database table", required = true) @PathVariable Long idProduct) {
 
 		return productService.getProduct(idProduct);
 
@@ -78,7 +86,9 @@ public class ProductController {
 	@DeleteMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Delete a product of the insurance company.")
-	public ResponseEntity<ProductRSDTO> deleteProduct(@PathVariable Long idProduct) {
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product deleted succesfully") })
+	public ResponseEntity<Void> deleteProduct(
+			@ApiParam(value = "Product id that we want to delete in database table", required = true) @PathVariable Long idProduct) {
 
 		return productService.deleteProduct(idProduct);
 
@@ -92,7 +102,8 @@ public class ProductController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Retrieve the list of all products of the insurance company.")
+	@ApiOperation(value = "Retrieve the list of all products of the insurance company.", response = List.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Products list found succesfully") })
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts() {
 
 		return productService.getAllProducts();
@@ -109,9 +120,11 @@ public class ProductController {
 	 */
 	@PutMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Update a product of the insurance company.")
-	public ResponseEntity<ProductRSDTO> updateProduct(@PathVariable Long idProduct,
-			@RequestBody ProductRQDTO productRQDTO) {
+	@ApiOperation(value = "Update a product of the insurance company.", response = ProductRSDTO.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product updated succesfully") })
+	public ResponseEntity<ProductRSDTO> updateProduct(
+			@ApiParam(value = "Product id that we want to update in database table", required = true) @PathVariable Long idProduct,
+			@ApiParam(value = "Product object to update in database table", required = true) @RequestBody ProductRQDTO productRQDTO) {
 
 		return productService.updateProduct(idProduct, productRQDTO);
 

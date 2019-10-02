@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * Client Entity
  * 
@@ -15,19 +18,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "client")
+@ApiModel(description = "All details about the client. ")
 public class ClientEntity {
 
 	@Id
+	@ApiModelProperty(notes = "The database generated client ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_client")
 	private Long idClient;
 
+	@ApiModelProperty(notes = "The client name")
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@ApiModelProperty(notes = "The client surname")
 	@Column(name = "surname", nullable = false)
 	private String surname;
 
+	@ApiModelProperty(notes = "The client phone number")
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
 

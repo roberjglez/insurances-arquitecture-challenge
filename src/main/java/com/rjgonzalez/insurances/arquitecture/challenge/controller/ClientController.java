@@ -21,6 +21,9 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.ClientService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Controller to manage clients
@@ -46,7 +49,9 @@ public class ClientController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Add new client of the insurance company.")
-	public ResponseEntity<ClientRSDTO> addClient(@RequestBody ClientRQDTO clientRQDTO) {
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Client created succesfully") })
+	public ResponseEntity<Void> addClient(
+			@ApiParam(value = "New client object to store in database table", required = true) @RequestBody ClientRQDTO clientRQDTO) {
 
 		return clientService.addClient(clientRQDTO);
 
@@ -61,8 +66,11 @@ public class ClientController {
 	 */
 	@GetMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Retrieve a client of the insurance company.")
-	public ResponseEntity<ClientRSDTO> getClient(@PathVariable Long idClient) {
+	@ApiOperation(value = "Retrieve a client of the insurance company.", response = ClientRSDTO.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client returned succesfully"),
+			@ApiResponse(code = 204, message = "Client not found") })
+	public ResponseEntity<ClientRSDTO> getClient(
+			@ApiParam(value = "Client id that we want to get from database table", required = true) @PathVariable Long idClient) {
 
 		return clientService.getClient(idClient);
 
@@ -78,7 +86,9 @@ public class ClientController {
 	@DeleteMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Delete a client of the insurance company.")
-	public ResponseEntity<ClientRSDTO> deleteClient(@PathVariable Long idClient) {
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client deleted succesfully") })
+	public ResponseEntity<Void> deleteClient(
+			@ApiParam(value = "Client id that we want to delete in database table", required = true) @PathVariable Long idClient) {
 
 		return clientService.deleteClient(idClient);
 
@@ -92,7 +102,8 @@ public class ClientController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Retrieve the list of all clients of the insurance company.")
+	@ApiOperation(value = "Retrieve the list of all clients of the insurance company.", response = List.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Clients list found succesfully") })
 	public ResponseEntity<List<ClientRSDTO>> getAllClients() {
 
 		return clientService.getAllClients();
@@ -109,8 +120,11 @@ public class ClientController {
 	 */
 	@PutMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Update a client of the insurance company.")
-	public ResponseEntity<ClientRSDTO> updateClient(@PathVariable Long idClient, @RequestBody ClientRQDTO clientRQDTO) {
+	@ApiOperation(value = "Update a client of the insurance company.", response = ClientRSDTO.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client updated succesfully") })
+	public ResponseEntity<ClientRSDTO> updateClient(
+			@ApiParam(value = "Client id that we want to update in database table", required = true) @PathVariable Long idClient,
+			@ApiParam(value = "Client object to update in database table", required = true) @RequestBody ClientRQDTO clientRQDTO) {
 
 		return clientService.updateClient(idClient, clientRQDTO);
 

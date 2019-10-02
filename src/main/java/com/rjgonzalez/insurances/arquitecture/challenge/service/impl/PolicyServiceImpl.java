@@ -1,14 +1,17 @@
 package com.rjgonzalez.insurances.arquitecture.challenge.service.impl;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRSDTO;
@@ -35,25 +38,27 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ResponseEntity<PolicyRSDTO> addPolicy(PolicyRQDTO policyRQDTO) {
+	public ResponseEntity<Void> addPolicy(PolicyRQDTO policyRQDTO) {
 
 		PolicyEntity policyRQEntity = modelMapper.map(policyRQDTO, PolicyEntity.class);
 
 		PolicyEntity policyRSEntity = policyRepository.save(policyRQEntity);
 
-		PolicyRSDTO policyResponse = modelMapper.map(policyRSEntity, PolicyRSDTO.class);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(policyRSEntity.getIdPolicy()).toUri();
 
-		return new ResponseEntity<>(policyResponse, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setLocation(location);
+
+		return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
 	}
 
 	@Override
-	public ResponseEntity<PolicyRSDTO> deletePolicy(Long idPolicy) {
+	public ResponseEntity<Void> deletePolicy(Long idPolicy) {
 
 		policyRepository.deleteById(idPolicy);
 
-		PolicyRSDTO policyRSEntity = new PolicyRSDTO();
-
-		return new ResponseEntity<>(policyRSEntity, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@Override

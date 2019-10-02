@@ -21,6 +21,9 @@ import com.rjgonzalez.insurances.arquitecture.challenge.service.PolicyService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Controller to manage policies
@@ -46,7 +49,9 @@ public class PolicyController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Add new policy of the insurance company.")
-	public ResponseEntity<PolicyRSDTO> addPolicy(@RequestBody PolicyRQDTO policyRQDTO) {
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Policy created succesfully") })
+	public ResponseEntity<Void> addPolicy(
+			@ApiParam(value = "New policy object to store in database table", required = true) @RequestBody PolicyRQDTO policyRQDTO) {
 
 		return policyService.addPolicy(policyRQDTO);
 
@@ -61,8 +66,11 @@ public class PolicyController {
 	 */
 	@GetMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Retrieve a policy of the insurance company.")
-	public ResponseEntity<PolicyRSDTO> getPolicy(@PathVariable Long idPolicy) {
+	@ApiOperation(value = "Retrieve a policy of the insurance company.", response = PolicyRSDTO.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Policy found succesfully"),
+			@ApiResponse(code = 204, message = "Policy not found") })
+	public ResponseEntity<PolicyRSDTO> getPolicy(
+			@ApiParam(value = "Policy id that we want to get from database table", required = true) @PathVariable Long idPolicy) {
 
 		return policyService.getPolicy(idPolicy);
 
@@ -78,7 +86,9 @@ public class PolicyController {
 	@DeleteMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Delete a policy of the insurance company.")
-	public ResponseEntity<PolicyRSDTO> deletePolicy(@PathVariable Long idPolicy) {
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Policy deleted succesfully") })
+	public ResponseEntity<Void> deletePolicy(
+			@ApiParam(value = "Policy id that we want to delete in database table", required = true) @PathVariable Long idPolicy) {
 
 		return policyService.deletePolicy(idPolicy);
 
@@ -92,7 +102,8 @@ public class PolicyController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Retrieve the list of all policies of the insurance company.")
+	@ApiOperation(value = "Retrieve the list of all policies of the insurance company.", response = List.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Policies list found succesfully") })
 	public ResponseEntity<List<PolicyRSDTO>> getAllPolicies() {
 
 		return policyService.getAllPolicies();
@@ -109,8 +120,11 @@ public class PolicyController {
 	 */
 	@PutMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Update a policy of the insurance company.")
-	public ResponseEntity<PolicyRSDTO> updatePolicy(@PathVariable Long idPolicy, @RequestBody PolicyRQDTO policyRQDTO) {
+	@ApiOperation(value = "Update a policy of the insurance company.", response = PolicyRSDTO.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Policy updated succesfully") })
+	public ResponseEntity<PolicyRSDTO> updatePolicy(
+			@ApiParam(value = "Policy id that we want to update in database table", required = true) @PathVariable Long idPolicy,
+			@ApiParam(value = "Policy object to update in database table", required = true) @RequestBody PolicyRQDTO policyRQDTO) {
 
 		return policyService.updatePolicy(idPolicy, policyRQDTO);
 
