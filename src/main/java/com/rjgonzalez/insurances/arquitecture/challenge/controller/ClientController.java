@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRQDTO;
@@ -36,8 +35,12 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(value = "/api-challenge/clients")
 public class ClientController {
 
-	@Autowired
 	ClientService clientService;
+
+	@Autowired
+	public ClientController(ClientService clientService) {
+		this.clientService = clientService;
+	}
 
 	/**
 	 * Endpoint to add new clients
@@ -47,7 +50,6 @@ public class ClientController {
 	 *
 	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Add new client of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Client created succesfully") })
 	public ResponseEntity<Void> addClient(
@@ -65,7 +67,6 @@ public class ClientController {
 	 *
 	 */
 	@GetMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Retrieve a client of the insurance company.", response = ClientRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client returned succesfully"),
 			@ApiResponse(code = 204, message = "Client not found") })
@@ -84,7 +85,6 @@ public class ClientController {
 	 *
 	 */
 	@DeleteMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Delete a client of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client deleted succesfully") })
 	public ResponseEntity<Void> deleteClient(
@@ -101,7 +101,6 @@ public class ClientController {
 	 *
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Retrieve the list of all clients of the insurance company.", response = List.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Clients list found succesfully") })
 	public ResponseEntity<List<ClientRSDTO>> getAllClients() {
@@ -119,7 +118,6 @@ public class ClientController {
 	 *
 	 */
 	@PutMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Update a client of the insurance company.", response = ClientRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client updated succesfully") })
 	public ResponseEntity<ClientRSDTO> updateClient(

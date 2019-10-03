@@ -51,6 +51,7 @@ public class ClientServiceImpl implements ClientService {
 		responseHeaders.setLocation(location);
 
 		return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+
 	}
 
 	@Override

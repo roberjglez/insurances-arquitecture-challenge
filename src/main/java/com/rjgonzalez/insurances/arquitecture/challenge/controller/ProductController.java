@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ProductRQDTO;
@@ -36,8 +35,12 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(value = "/api-challenge/products")
 public class ProductController {
 
-	@Autowired
 	ProductService productService;
+
+	@Autowired
+	public ProductController(ProductService productService) {
+		this.productService = productService;
+	}
 
 	/**
 	 * Endpoint to add new products
@@ -47,7 +50,6 @@ public class ProductController {
 	 *
 	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Add new product of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Product created succesfully") })
 	public ResponseEntity<Void> addProduct(
@@ -65,7 +67,6 @@ public class ProductController {
 	 *
 	 */
 	@GetMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Retrieve a product of the insurance company.", response = ProductRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product found succesfully"),
 			@ApiResponse(code = 204, message = "Product not found") })
@@ -84,7 +85,6 @@ public class ProductController {
 	 *
 	 */
 	@DeleteMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Delete a product of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product deleted succesfully") })
 	public ResponseEntity<Void> deleteProduct(
@@ -101,7 +101,6 @@ public class ProductController {
 	 *
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Retrieve the list of all products of the insurance company.", response = List.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Products list found succesfully") })
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts() {
@@ -119,7 +118,6 @@ public class ProductController {
 	 *
 	 */
 	@PutMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	@ApiOperation(value = "Update a product of the insurance company.", response = ProductRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product updated succesfully") })
 	public ResponseEntity<ProductRSDTO> updateProduct(
