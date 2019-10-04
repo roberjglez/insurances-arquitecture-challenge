@@ -52,10 +52,10 @@ public class PolicyController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Add new policy of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Policy created succesfully") })
-	public ResponseEntity<Void> addPolicy(
+	public ResponseEntity<Void> createPolicy(
 			@ApiParam(value = "New policy object to store in database table", required = true) @RequestBody PolicyRQDTO policyRQDTO) {
 
-		return policyService.addPolicy(policyRQDTO);
+		return policyService.createPolicy(policyRQDTO);
 
 	}
 
@@ -120,7 +120,7 @@ public class PolicyController {
 	@PutMapping(path = "/{idPolicy}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Update a policy of the insurance company.", response = PolicyRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Policy updated succesfully") })
-	public ResponseEntity<PolicyRSDTO> updatePolicy(
+	public ResponseEntity<Void> updatePolicy(
 			@ApiParam(value = "Policy id that we want to update in database table", required = true) @PathVariable Long idPolicy,
 			@ApiParam(value = "Policy object to update in database table", required = true) @RequestBody PolicyRQDTO policyRQDTO) {
 

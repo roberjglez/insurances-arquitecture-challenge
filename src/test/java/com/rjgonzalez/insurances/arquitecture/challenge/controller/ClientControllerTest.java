@@ -67,11 +67,11 @@ public class ClientControllerTest {
 	}
 
 	@Test
-	public void addClientReturns201Test() throws Exception {
+	public void createClientReturns201Test() throws Exception {
 
 		ResponseEntity<Void> entity = new ResponseEntity<Void>(HttpStatus.CREATED);
 
-		Mockito.when(clientService.addClient(Mockito.any(ClientRQDTO.class))).thenReturn(entity);
+		Mockito.when(clientService.createClient(Mockito.any(ClientRQDTO.class))).thenReturn(entity);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(clientRQDTO);
@@ -158,7 +158,7 @@ public class ClientControllerTest {
 
 		clientRQDTO.setIdClient(1L);
 
-		ResponseEntity<ClientRSDTO> entity = new ResponseEntity<ClientRSDTO>(clientRSDTO, HttpStatus.OK);
+		ResponseEntity<Void> entity = new ResponseEntity<Void>(HttpStatus.OK);
 
 		Mockito.when(clientService.updateClient(clientRQDTO.getIdClient(), clientRQDTO)).thenReturn(entity);
 

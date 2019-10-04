@@ -52,10 +52,10 @@ public class ProductController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Add new product of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Product created succesfully") })
-	public ResponseEntity<Void> addProduct(
+	public ResponseEntity<Void> createProduct(
 			@ApiParam(value = "New product object to store in database table", required = true) @RequestBody ProductRQDTO productRQDTO) {
 
-		return productService.addProduct(productRQDTO);
+		return productService.createProduct(productRQDTO);
 
 	}
 
@@ -120,7 +120,7 @@ public class ProductController {
 	@PutMapping(path = "/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Update a product of the insurance company.", response = ProductRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Product updated succesfully") })
-	public ResponseEntity<ProductRSDTO> updateProduct(
+	public ResponseEntity<Void> updateProduct(
 			@ApiParam(value = "Product id that we want to update in database table", required = true) @PathVariable Long idProduct,
 			@ApiParam(value = "Product object to update in database table", required = true) @RequestBody ProductRQDTO productRQDTO) {
 

@@ -9,9 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Policy Entity
  * 
@@ -20,35 +17,27 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Entity
 @Table(name = "policy")
-
-@ApiModel(description = "All details about the policy. ")
 public class PolicyEntity {
 
 	@Id
-	@ApiModelProperty(notes = "The database generated policy ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_policy")
 	private Long idPolicy;
 
-	@ApiModelProperty(notes = "The policy type")
 	@Column(name = "type", nullable = false)
 	private String type;
 
-	@ApiModelProperty(notes = "The policy hiring date")
 	@Column(name = "hiring_date", nullable = false)
 	private String hiringDate;
 
-	@ApiModelProperty(notes = "The policy price")
 	@Column(name = "price", nullable = false)
 	private double price;
 
 	@ManyToOne
-	@ApiModelProperty(notes = "Id product hired in the policy")
 	@JoinColumn(name = "product", referencedColumnName = "id_product")
 	private ProductEntity product;
 
 	@ManyToOne
-	@ApiModelProperty(notes = "Id client that hired the policy")
 	@JoinColumn(name = "client", referencedColumnName = "id_client")
 	private ClientEntity client;
 

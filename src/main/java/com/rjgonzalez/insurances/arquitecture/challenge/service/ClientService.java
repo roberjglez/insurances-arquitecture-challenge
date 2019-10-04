@@ -15,7 +15,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRSDTO;
  */
 public interface ClientService {
 
-	public ResponseEntity<Void> addClient(ClientRQDTO clientRQDTO);
+	public ResponseEntity<Void> createClient(ClientRQDTO clientRQDTO);
 
 	public ResponseEntity<Void> deleteClient(Long idClient);
 
@@ -23,5 +23,5 @@ public interface ClientService {
 
 	public ResponseEntity<List<ClientRSDTO>> getAllClients();
 
-	public ResponseEntity<ClientRSDTO> updateClient(Long idClient, ClientRQDTO clientRQDTO);
+	public ResponseEntity<Void> updateClient(Long idClient, ClientRQDTO clientRQDTO);
 }

@@ -66,7 +66,7 @@ public class ClientServiceImplTest {
 	}
 
 	@Test
-	public void addClientReturns201Test() {
+	public void createClientReturns201Test() {
 
 		ClientEntity clientRQEntity = modelMapper.map(clientRQDTO, ClientEntity.class);
 		assertNotNull(clientRQEntity);
@@ -79,7 +79,7 @@ public class ClientServiceImplTest {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setLocation(location);
 
-		ResponseEntity<Void> clientResponse = clientService.addClient(clientRQDTO);
+		ResponseEntity<Void> clientResponse = clientService.createClient(clientRQDTO);
 		assertNotNull(clientResponse);
 		assertEquals(HttpStatus.CREATED, clientResponse.getStatusCode());
 
@@ -160,7 +160,7 @@ public class ClientServiceImplTest {
 
 		clientRQDTO.setIdClient(1L);
 
-		ResponseEntity<ClientRSDTO> clientResponse = clientService.updateClient(clientRQDTO.getIdClient(), clientRQDTO);
+		ResponseEntity<Void> clientResponse = clientService.updateClient(clientRQDTO.getIdClient(), clientRQDTO);
 		assertNotNull(clientResponse);
 		assertEquals(HttpStatus.OK, clientResponse.getStatusCode());
 

@@ -15,7 +15,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.PolicyRSDTO;
  */
 public interface PolicyService {
 
-	public ResponseEntity<Void> addPolicy(PolicyRQDTO policyRQDTO);
+	public ResponseEntity<Void> createPolicy(PolicyRQDTO policyRQDTO);
 
 	public ResponseEntity<Void> deletePolicy(Long idPolicy);
 
@@ -23,5 +23,5 @@ public interface PolicyService {
 
 	public ResponseEntity<List<PolicyRSDTO>> getAllPolicies();
 
-	public ResponseEntity<PolicyRSDTO> updatePolicy(Long idPolicy, PolicyRQDTO policyRQDTO);
+	public ResponseEntity<Void> updatePolicy(Long idPolicy, PolicyRQDTO policyRQDTO);
 }

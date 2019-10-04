@@ -38,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public ResponseEntity<Void> addClient(ClientRQDTO clientRQDTO) {
+	public ResponseEntity<Void> createClient(ClientRQDTO clientRQDTO) {
 
 		ClientEntity clientRQEntity = modelMapper.map(clientRQDTO, ClientEntity.class);
 
@@ -91,7 +91,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public ResponseEntity<ClientRSDTO> updateClient(Long idClient, ClientRQDTO clientRQDTO) {
+	public ResponseEntity<Void> updateClient(Long idClient, ClientRQDTO clientRQDTO) {
 
 		clientRQDTO.setIdClient(idClient);
 
@@ -99,9 +99,13 @@ public class ClientServiceImpl implements ClientService {
 
 		ClientEntity clientRSEntity = clientRepository.save(clientRQEntity);
 
-		ClientRSDTO clientResponse = modelMapper.map(clientRSEntity, ClientRSDTO.class);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(clientRSEntity.getIdClient()).toUri();
 
-		return new ResponseEntity<>(clientResponse, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setLocation(location);
+
+		return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
 	}
 
 }

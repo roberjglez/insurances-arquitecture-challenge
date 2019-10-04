@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Product Entity
@@ -22,16 +21,13 @@ import io.swagger.annotations.ApiModelProperty;
 public class ProductEntity {
 
 	@Id
-	@ApiModelProperty(notes = "The database generated product ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_product")
 	private Long idProduct;
 
-	@ApiModelProperty(notes = "The product type")
 	@Column(name = "type", nullable = false)
 	private String type;
 
-	@ApiModelProperty(notes = "The product price")
 	@Column(name = "price", nullable = false)
 	private double price;
 

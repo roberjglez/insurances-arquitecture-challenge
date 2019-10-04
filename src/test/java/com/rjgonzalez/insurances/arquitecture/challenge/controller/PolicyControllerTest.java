@@ -87,8 +87,8 @@ public class PolicyControllerTest {
 		productRSDTO.setPrice(210.50);
 
 		policyRQDTO = new PolicyRQDTO();
-		policyRQDTO.setType("Sopra");
-		policyRQDTO.setHiringDate("Steria");
+		policyRQDTO.setType("Vehicle insurance");
+		policyRQDTO.setHiringDate("2018");
 		policyRQDTO.setPrice(440.72);
 		policyRQDTO.setClient(clientRQDTO);
 		policyRQDTO.setProduct(productRQDTO);
@@ -104,11 +104,11 @@ public class PolicyControllerTest {
 	}
 
 	@Test
-	public void addPolicyReturns201Test() throws Exception {
+	public void createPolicyReturns201Test() throws Exception {
 
 		ResponseEntity<Void> entity = new ResponseEntity<Void>(HttpStatus.CREATED);
 
-		Mockito.when(policyService.addPolicy(Mockito.any(PolicyRQDTO.class))).thenReturn(entity);
+		Mockito.when(policyService.createPolicy(Mockito.any(PolicyRQDTO.class))).thenReturn(entity);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(policyRQDTO);
@@ -195,7 +195,7 @@ public class PolicyControllerTest {
 
 		policyRQDTO.setIdPolicy(1L);
 
-		ResponseEntity<PolicyRSDTO> entity = new ResponseEntity<PolicyRSDTO>(policyRSDTO, HttpStatus.OK);
+		ResponseEntity<Void> entity = new ResponseEntity<Void>(HttpStatus.OK);
 
 		Mockito.when(policyService.updatePolicy(policyRQDTO.getIdPolicy(), policyRQDTO)).thenReturn(entity);
 

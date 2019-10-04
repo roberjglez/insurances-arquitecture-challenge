@@ -52,10 +52,10 @@ public class ClientController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Add new client of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Client created succesfully") })
-	public ResponseEntity<Void> addClient(
+	public ResponseEntity<Void> createClient(
 			@ApiParam(value = "New client object to store in database table", required = true) @RequestBody ClientRQDTO clientRQDTO) {
 
-		return clientService.addClient(clientRQDTO);
+		return clientService.createClient(clientRQDTO);
 
 	}
 
@@ -120,7 +120,7 @@ public class ClientController {
 	@PutMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Update a client of the insurance company.", response = ClientRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client updated succesfully") })
-	public ResponseEntity<ClientRSDTO> updateClient(
+	public ResponseEntity<Void> updateClient(
 			@ApiParam(value = "Client id that we want to update in database table", required = true) @PathVariable Long idClient,
 			@ApiParam(value = "Client object to update in database table", required = true) @RequestBody ClientRQDTO clientRQDTO) {
 

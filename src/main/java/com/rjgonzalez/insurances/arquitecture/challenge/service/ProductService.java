@@ -15,7 +15,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.ProductRSDTO;
  */
 public interface ProductService {
 
-	public ResponseEntity<Void> addProduct(ProductRQDTO productRQDTO);
+	public ResponseEntity<Void> createProduct(ProductRQDTO productRQDTO);
 
 	public ResponseEntity<Void> deleteProduct(Long idProduct);
 
@@ -23,5 +23,5 @@ public interface ProductService {
 
 	public ResponseEntity<List<ProductRSDTO>> getAllProducts();
 
-	public ResponseEntity<ProductRSDTO> updateProduct(Long idProduct, ProductRQDTO productRQDTO);
+	public ResponseEntity<Void> updateProduct(Long idProduct, ProductRQDTO productRQDTO);
 }

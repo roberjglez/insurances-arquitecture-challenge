@@ -66,11 +66,11 @@ public class ProductControllerTest {
 	}
 
 	@Test
-	public void addProductReturns201Test() throws Exception {
+	public void createProductReturns201Test() throws Exception {
 
 		ResponseEntity<Void> entity = new ResponseEntity<Void>(HttpStatus.CREATED);
 
-		Mockito.when(productService.addProduct(Mockito.any(ProductRQDTO.class))).thenReturn(entity);
+		Mockito.when(productService.createProduct(Mockito.any(ProductRQDTO.class))).thenReturn(entity);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(productRQDTO);
@@ -157,7 +157,7 @@ public class ProductControllerTest {
 
 		productRQDTO.setIdProduct(1L);
 
-		ResponseEntity<ProductRSDTO> entity = new ResponseEntity<ProductRSDTO>(productRSDTO, HttpStatus.OK);
+		ResponseEntity<Void> entity = new ResponseEntity<Void>(HttpStatus.OK);
 
 		Mockito.when(productService.updateProduct(productRQDTO.getIdProduct(), productRQDTO)).thenReturn(entity);
 

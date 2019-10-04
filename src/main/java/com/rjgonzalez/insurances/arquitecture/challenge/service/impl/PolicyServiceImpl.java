@@ -38,7 +38,7 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ResponseEntity<Void> addPolicy(PolicyRQDTO policyRQDTO) {
+	public ResponseEntity<Void> createPolicy(PolicyRQDTO policyRQDTO) {
 
 		PolicyEntity policyRQEntity = modelMapper.map(policyRQDTO, PolicyEntity.class);
 
@@ -90,7 +90,7 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ResponseEntity<PolicyRSDTO> updatePolicy(Long idPolicy, PolicyRQDTO policyRQDTO) {
+	public ResponseEntity<Void> updatePolicy(Long idPolicy, PolicyRQDTO policyRQDTO) {
 
 		policyRQDTO.setIdPolicy(idPolicy);
 
@@ -98,9 +98,13 @@ public class PolicyServiceImpl implements PolicyService {
 
 		PolicyEntity policyRSEntity = policyRepository.save(policyRQEntity);
 
-		PolicyRSDTO policyResponse = modelMapper.map(policyRSEntity, PolicyRSDTO.class);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(policyRSEntity.getIdPolicy()).toUri();
 
-		return new ResponseEntity<>(policyResponse, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setLocation(location);
+
+		return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
 
 	}
 

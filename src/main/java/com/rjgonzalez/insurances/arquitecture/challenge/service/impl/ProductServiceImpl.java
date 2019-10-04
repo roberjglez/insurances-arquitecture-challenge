@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ResponseEntity<Void> addProduct(ProductRQDTO productRQDTO) {
+	public ResponseEntity<Void> createProduct(ProductRQDTO productRQDTO) {
 
 		ProductEntity productRQEntity = modelMapper.map(productRQDTO, ProductEntity.class);
 
@@ -90,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ResponseEntity<ProductRSDTO> updateProduct(Long idProduct, ProductRQDTO productRQDTO) {
+	public ResponseEntity<Void> updateProduct(Long idProduct, ProductRQDTO productRQDTO) {
 
 		productRQDTO.setIdProduct(idProduct);
 
@@ -98,9 +98,13 @@ public class ProductServiceImpl implements ProductService {
 
 		ProductEntity productRSEntity = productRepository.save(productRQEntity);
 
-		ProductRSDTO productResponse = modelMapper.map(productRSEntity, ProductRSDTO.class);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(productRSEntity.getIdProduct()).toUri();
 
-		return new ResponseEntity<>(productResponse, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setLocation(location);
+
+		return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
 
 	}
 
