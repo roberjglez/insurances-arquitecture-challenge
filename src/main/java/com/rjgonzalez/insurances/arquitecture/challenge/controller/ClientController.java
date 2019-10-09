@@ -18,6 +18,7 @@ import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRQDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.dto.ClientRSDTO;
 import com.rjgonzalez.insurances.arquitecture.challenge.service.ClientService;
 
+import io.micrometer.core.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,6 +32,7 @@ import io.swagger.annotations.ApiResponses;
  *
  */
 @RestController
+@Timed
 @Api(value = "API Rest for insurance clients.")
 @RequestMapping(value = "/api-challenge/clients")
 public class ClientController {
@@ -50,6 +52,7 @@ public class ClientController {
 	 *
 	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
 	@ApiOperation(value = "Add new client of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Client created succesfully") })
 	public ResponseEntity<Void> createClient(
@@ -67,6 +70,7 @@ public class ClientController {
 	 *
 	 */
 	@GetMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
 	@ApiOperation(value = "Retrieve a client of the insurance company.", response = ClientRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client returned succesfully"),
 			@ApiResponse(code = 204, message = "Client not found") })
@@ -85,6 +89,7 @@ public class ClientController {
 	 *
 	 */
 	@DeleteMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
 	@ApiOperation(value = "Delete a client of the insurance company.")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client deleted succesfully") })
 	public ResponseEntity<Void> deleteClient(
@@ -101,6 +106,7 @@ public class ClientController {
 	 *
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
 	@ApiOperation(value = "Retrieve the list of all clients of the insurance company.", response = List.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Clients list found succesfully") })
 	public ResponseEntity<List<ClientRSDTO>> getAllClients() {
@@ -118,6 +124,7 @@ public class ClientController {
 	 *
 	 */
 	@PutMapping(path = "/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
 	@ApiOperation(value = "Update a client of the insurance company.", response = ClientRSDTO.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Client updated succesfully") })
 	public ResponseEntity<Void> updateClient(
